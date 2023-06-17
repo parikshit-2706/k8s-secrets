@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nodeapp-deployment-env-sk
+  name: nodeapp-deployment-secret-pc
   labels:
     app: nodeapp
 spec:
