@@ -25,7 +25,7 @@ spec:
       volumes:
       - name: testsecret
         secret:
-         secretName: mysecret 
+         secretName: parikshit-secret 
 
 
 ---
