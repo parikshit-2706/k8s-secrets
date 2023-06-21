@@ -1,7 +1,29 @@
+---
+apiVersion: v1
+data:
+  parikshit.conf: |
+    Parikshit's conf file, hi there!
+kind: ConfigMap
+metadata:
+  name: confmap-parikshit
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysecret-1
+type: Opaque
+data:
+  username: YWRtaW4=
+  password: MWYyZDFlMmU2N2Rm
+
+---
+
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nodeapp-deployment-secret-pc
+  name: nodeapp-deployment-pc-again
   labels:
     app: nodeapp
 spec:
@@ -21,12 +43,19 @@ spec:
         - containerPort: 3000
         volumeMounts:
          - name: testsecret
-           mountPath: "/tmp/mysecrets"   # the secret files will be mounted as ReadOnly by default here
+           mountPath: "/tmp/config" 
+         - name: testsecret
+           mountPath: /tmp/mysecrets
       volumes:
-      - name: testsecret
-        secret:
-         secretName: parikshit-secret 
-
+        - name: testconfigmap
+          configMap:
+            name: confmap-parikshit
+            items:
+              - key: parikshit.conf
+                path: parikshit.conf
+        - name: testsecret
+          secret:
+            secretName: mysecret-1
 
 ---
 
