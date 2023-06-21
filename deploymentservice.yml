@@ -5,7 +5,7 @@ data:
     Parikshit's conf file, hi there!
 kind: ConfigMap
 metadata:
-  name: confmap-parikshit
+  name: parikshit-configmap
   namespace: 1911
 ---
 apiVersion: v1
