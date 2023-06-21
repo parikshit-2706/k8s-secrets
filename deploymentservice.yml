@@ -24,7 +24,7 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nodeapp-deployment-pc-returns
+  name: nodeapp-deployment-pc-1
   namespace: 1911
   labels:
     app: nodeapp
