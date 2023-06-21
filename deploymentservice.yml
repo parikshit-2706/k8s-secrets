@@ -64,7 +64,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nodeapp-service
+  name: nodeapp-service-again
 spec:
   selector:
     app: nodeapp 
@@ -73,4 +73,4 @@ spec:
   - protocol: TCP
     port: 5000
     targetPort: 3000
-    nodePort: 31110
+    nodePort: 31120
