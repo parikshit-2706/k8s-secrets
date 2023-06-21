@@ -6,12 +6,13 @@ data:
 kind: ConfigMap
 metadata:
   name: confmap-parikshit
-
+  namespace: 1911
 ---
 apiVersion: v1
 kind: Secret
 metadata:
   name: mysecret-1
+  namespace: 1911
 type: Opaque
 data:
   username: YWRtaW4=
@@ -23,7 +24,8 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nodeapp-deployment-pc-again
+  name: nodeapp-deployment-pc-returns
+  namespace: 1911
   labels:
     app: nodeapp
 spec:
@@ -64,7 +66,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nodeapp-service-again
+  name: nodeapp-service-returns
+  namespace: 1911
 spec:
   selector:
     app: nodeapp 
