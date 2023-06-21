@@ -44,20 +44,20 @@ spec:
         ports:
         - containerPort: 3000
         volumeMounts:
+         - name: parikshit-configmap
+           mountPath: "/tmp/parikshit-config" 
          - name: testsecret
-           mountPath: "/tmp/config" 
-         - name: testsecret
-           mountPath: /tmp/mysecrets
+           mountPath: /tmp/parikshit-secrets
       volumes:
-        - name: testconfigmap
+        - name: parikshit-configmap
           configMap:
-            name: confmap-parikshit
+            name: parikshit-configmap
             items:
               - key: parikshit.conf
                 path: parikshit.conf
         - name: testsecret
           secret:
-            secretName: mysecret-1
+            secretName: parikshit-secret
 
 ---
 
