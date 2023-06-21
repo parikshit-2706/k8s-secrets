@@ -44,12 +44,12 @@ spec:
         ports:
         - containerPort: 3000
         volumeMounts:
-         - name: parikshit-configmap
-           mountPath: "/tmp/parikshit-config" 
+         - name: testconfigmap
+           mountPath: "/tmp/config" 
          - name: testsecret
-           mountPath: /tmp/parikshit-secrets
+           mountPath: /tmp/mysecrets
       volumes:
-        - name: parikshit-configmap
+        - name: testconfigmap
           configMap:
             name: parikshit-configmap
             items:
@@ -57,7 +57,7 @@ spec:
                 path: parikshit.conf
         - name: testsecret
           secret:
-            secretName: parikshit-secret
+            secretName: mysecret-1
 
 ---
 
@@ -66,7 +66,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nodeapp-service-returns
+  name: nodeapp-service-pc-1
   namespace: 1911
 spec:
   selector:
