@@ -1,39 +1,58 @@
+---
+
 trigger:
-  branches:
-    include:
-      - main 
+
+  - main
 
 pool: self-hosted-1
 
 variables:
-  dockerimagename: 'parikshit2097/nodeapp-azure'  # Set the desired Docker image name here
 
-stages:
-  - stage: CheckoutSource
-    displayName: 'Checkout Source'
-    steps:
-      - checkout: git://parikshit-2706/k8s-secrets
+  imageName: 'parikshit2097/nodeapp'
 
-  - stage: BuildImage
-    displayName: 'Build image'
-    steps:
-      - script: |
-          docker build -t $(dockerimagename) .
-        displayName: 'Build Docker image'
-  
-  - stage: PushImage
-    displayName: 'Pushing Image'
-    environment:
-      name: dockerhublogin
-    steps:
-      - script: |
-          docker login -u parikshit2097 -p thisIsMyDocker@1357
-          docker push $(dockerimagename):latest
-        displayName: 'Push Docker image to Docker Hub'
-  
-  - stage: DeployAppToKubernetes
-    displayName: 'Deploying App to Kubernetes'
-    steps:
-      - script: |
-          kubectl apply -f deploymentservice.yml --kubeconfig 'k8s'
-        displayName: 'Deploy to Kubernetes'
+steps:
+
+  - task: Docker@2
+
+    displayName: Build and push an image
+
+    inputs:
+
+      repository: $(imageName)
+
+      command: buildAndPush
+
+      Dockerfile: dockerfile
+
+      containerRegistry: dockerhub
+
+  - task: CopyFiles@2
+
+    displayName: 'Copy manifest file'
+
+    inputs:
+
+      SourceFolder: '$(Build.SourcesDirectory)'
+
+      Contents: 'deploymentservice.yml'  # Specify the name of your manifest file
+
+      TargetFolder: '$(Pipeline.Workspace)'  
+
+
+
+
+  - task: KubernetesManifest@0
+
+    displayName: 'Deploy to Kubernetes'
+
+    inputs:
+
+      action: deploy
+
+      kubernetesServiceConnection: 'k8s'
+
+      manifests: |
+
+        $(Pipeline.Workspace)/deploymentservice.yml
+
+    
