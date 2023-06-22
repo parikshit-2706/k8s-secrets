@@ -24,7 +24,7 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nodeapp-deployment-pc-1
+  name: nodeapp-deployment-azure
   namespace: 1911
   labels:
     app: nodeapp
@@ -66,7 +66,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nodeapp-service-pc-1
+  name: nodeapp-service-azure
   namespace: 1911
 spec:
   selector:
@@ -76,4 +76,4 @@ spec:
   - protocol: TCP
     port: 5000
     targetPort: 3000
-    nodePort: 31120
+    nodePort: 31150
