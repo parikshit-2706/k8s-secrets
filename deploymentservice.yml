@@ -5,13 +5,13 @@ data:
     Parikshit's conf file, hi there!
 kind: ConfigMap
 metadata:
-  name: parikshit-configmap
+  name: parikshit-configmap-az
   namespace: 1911
 ---
 apiVersion: v1
 kind: Secret
 metadata:
-  name: mysecret-1
+  name: mysecret-1-az
   namespace: 1911
 type: Opaque
 data:
@@ -51,13 +51,13 @@ spec:
       volumes:
         - name: testconfigmap
           configMap:
-            name: parikshit-configmap
+            name: parikshit-configmap-az
             items:
               - key: parikshit.conf
                 path: parikshit.conf
         - name: testsecret
           secret:
-            secretName: mysecret-1
+            secretName: mysecret-1-az
 
 ---
 
